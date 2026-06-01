@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deutschland 2045 – Die Zukunftsregierung</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #f0d080;
+      --gold-dark: #8a6a1f;
+      --bg-dark: #0a0a12;
+      --bg-mid: #0f0f1e;
+      --bg-card: #12121f;
+      --text: #e8e0d0;
+      --text-muted: #9090a0;
+      --accent-blue: #4a8fcf;
+      --accent-green: #4aaf6f;
+      --ornament: #c9a84c;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse at 80% 100%, rgba(74,143,207,0.12) 0%, transparent 55%),
+        var(--bg-dark);
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px),
+        repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,.35);
+      padding: .4rem 1.4rem;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      animation: fadeDown .8s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.4rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeDown .9s .1s ease both;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-style: italic;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      animation: fadeDown .9s .2s ease both;
+    }
+
+    .hero-divider {
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2rem auto;
+      animation: expand .8s .4s ease both;
+      transform-origin: center;
+    }
+
+    .hero-desc {
+      max-width: 640px;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: rgba(232,224,208,.8);
+      animation: fadeDown .9s .5s ease both;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .3em;
+      color: var(--gold-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      animation: pulse 2s infinite;
+    }
+
+    .scroll-hint::after {
+      content: '▼';
+      font-size: .85rem;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,18,.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,.2);
+      display: flex;
+      justify-content: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+      padding: .7rem 1rem;
+    }
+
+    nav a {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: .35rem .9rem;
+      border-radius: 2px;
+      transition: all .2s;
+      border: 1px solid transparent;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+      border-color: rgba(201,168,76,.3);
+      background: rgba(201,168,76,.05);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 6rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-number {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .4em;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: .75rem;
+    }
+
+    .section-icon {
+      font-size: 2.5rem;
+      margin-bottom: .5rem;
+      display: block;
+    }
+
+    .ornament-line {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .ornament-line::before,
+    .ornament-line::after {
+      content: '';
+      height: 1px;
+      width: 80px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark));
+    }
+
+    .ornament-line::after {
+      background: linear-gradient(90deg, var(--gold-dark), transparent);
+    }
+
+    .ornament-line span {
+      color: var(--gold);
+      font-size: .9rem;
+    }
+
+    /* ── SEPARATOR ── */
+    .section-sep {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,.3), transparent);
+      margin: 0;
+    }
+
+    /* ── CARDS ── */
+    .cards {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .cards-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .cards-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(201,168,76,.18);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      position: relative;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .card:hover {
+      border-color: rgba(201,168,76,.5);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      filter: sepia(20%) brightness(0.85);
+      transition: filter .4s;
+    }
+
+    .card:hover .card-img { filter: sepia(10%) brightness(0.95); }
+
+    .card-body {
+      padding: 1.4rem 1.5rem;
+    }
+
+    .card-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .65rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .6rem;
+    }
+
+    .card-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    /* ── STAT BOX ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 2.5rem 0;
+    }
+
+    .stat-box {
+      background: rgba(201,168,76,.05);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 4px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      display: block;
+    }
+
+    .stat-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: .3rem;
+    }
+
+    /* ── HERO IMAGE BANNER ── */
+    .img-banner {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 4px;
+      filter: sepia(30%) brightness(0.75);
+      border: 1px solid rgba(201,168,76,.2);
+      margin: 2rem 0;
+    }
+
+    /* ── DISCUSSION BOX ── */
+    .discussion {
+      background: rgba(74,143,207,.05);
+      border: 1px solid rgba(74,143,207,.25);
+      border-left: 3px solid var(--accent-blue);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .discussion-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      margin-bottom: .5rem;
+    }
+
+    .discussion p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: rgba(232,224,208,.8);
+    }
+
+    /* ── LIST ITEMS ── */
+    .fancy-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+      margin-top: 1.5rem;
+    }
+
+    .fancy-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .fancy-list li::before {
+      content: '◆';
+      color: var(--gold-dark);
+      font-size: .6rem;
+      margin-top: .4rem;
+      flex-shrink: 0;
+    }
+
+    /* ── TAG CHIPS ── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: .3rem .8rem;
+      border-radius: 2px;
+      border: 1px solid;
+    }
+
+    .tag-gold { color: var(--gold); border-color: rgba(201,168,76,.4); background: rgba(201,168,76,.06); }
+    .tag-blue { color: var(--accent-blue); border-color: rgba(74,143,207,.4); background: rgba(74,143,207,.06); }
+    .tag-green { color: var(--accent-green); border-color: rgba(74,175,111,.4); background: rgba(74,175,111,.06); }
+
+    /* ── FULL WIDTH BAND ── */
+    .band {
+      background: linear-gradient(135deg, rgba(201,168,76,.07) 0%, transparent 60%);
+      border-top: 1px solid rgba(201,168,76,.12);
+      border-bottom: 1px solid rgba(201,168,76,.12);
+      padding: 4rem 1.5rem;
+    }
+
+    /* ── AI LABEL ── */
+    .ai-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .62rem;
+      letter-spacing: .25em;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      margin-top: .4rem;
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid rgba(201,168,76,.15);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes expand {
+      from { transform: scaleX(0); opacity: 0; }
+      to   { transform: scaleX(1); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .4; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .section { padding: 4rem 1rem; }
+      .img-banner { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="top">
+  <div class="hero-badge">Zukunftsprojekt · Klasse 2025</div>
+  <h1 class="hero-title">Deutschland<br/>2045</h1>
+  <p class="hero-subtitle">Entwurf einer besseren Zukunft</p>
+  <div class="hero-divider"></div>
+  <p class="hero-desc">
+    Wir sind die zukünftige Regierung Deutschlands. In diesem Projekt skizzieren wir, 
+    wie unser Land in zwanzig Jahren aussehen soll – von Wohnen über Bildung 
+    bis zu einer gerechten, digitalen Gesellschaft.
+  </p>
+  <div class="scroll-hint">Entdecken</div>
+</section>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <a href="#wohnen">🏛 Wohnen</a>
+  <a href="#arbeit">⚙ Arbeit</a>
+  <a href="#bildung">📚 Bildung</a>
+  <a href="#umwelt">🌿 Umwelt</a>
+  <a href="#digital">💻 Digital</a>
+  <a href="#gesellschaft">🤝 Gesellschaft</a>
+</nav>
+
+
+<!-- ══════════ 1. WOHNEN ══════════ -->
+<div class="section-sep"></div>
+<div class="section" id="wohnen">
+  <div class="section-header">
+    <div class="section-number">Kapitel I</div>
+    <span class="section-icon">🏛</span>
+    <h2 class="section-title">Wohnen & Architektur</h2>
+    <div class="ornament-line"><span>✦</span></div>
+    <p style="color:var(--text-muted);font-size:1.05rem;max-width:600px;margin:0 auto;line-height:1.8;">
+      Wie sieht das Zuhause der Zukunft aus? Welche Preise sind gerecht – 
+      und wer baut die Wohnungen von morgen?
+    </p>
+  </div>
+
+  <div style="position:relative;">
+    <img
+      src="https://images.unsplash.com/photo-1560185009-dddecae71e5d?w=1100&q=80"
+      alt="Futuristische Barockarchitektur"
+      class="img-banner"
+    />
+    <div class="ai-label">🤖 KI-Vision: Barockfassaden treffen auf organische Zukunftsarchitektur</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-box">
+      <span class="stat-value">700 €</span>
+      <span class="stat-label">Max. Kaltmiete / Monat</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-value">≤ 30 %</span>
+      <span class="stat-label">Mietbelastung am Einkommen</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-value">2045</span>
+      <span class="stat-label">Zieldatum</span>
+    </div>
+  </div>
+
+  <div class="cards cards-2">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="Moderne Wohnung" class="card-img" />
+      <div class="card-body">
+        <div class="card-label">Unsere Position</div>
+        <div class="card-title">Mietdeckel: 700 € Kaltmiete</div>
+        <p class="card-text">
+          Niemand sollte mehr als 700 € Kaltmiete zahlen müssen. 
+          Leistbares Wohnen ist ein Grundrecht – nicht ein Privileg.
+          Der Staat setzt klare Obergrenzen und schafft Anreize für sozialen Wohnungsbau.
+        </p>
+        <div class="tags">
+          <span class="tag tag-gold">Gesetz</span>
+          <span class="tag tag-green">Sozial</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="Barock Zukunft" class="card-img" />
+      <div class="card-body">
+        <div class="card-label">Ästhetik 2045</div>
+        <div class="card-title">Neo-Barock trifft Öko-Futurismus</div>
+        <p class="card-text">
+          Gebäude vereinen klassische Barockornamentik mit lebenden Fassaden, 
+          Solarpaneelen und nachhaltigen Materialien. Schönheit und Funktion 
+          bilden eine Einheit.
+        </p>
+        <div class="tags">
+          <span class="tag tag-gold">Design</span>
+          <span class="tag tag-green">Nachhaltig</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="discussion">
+    <div class="discussion-title">💬 Klassendiskussion</div>
+    <p><strong>Soll der Staat selbst Wohnungen bauen?</strong> Diese Frage lassen wir bewusst offen.
+    Argumente für staatlichen Wohnungsbau: Preiskontrolle, Gemeinwohl. 
+    Argumente dagegen: Bürokratie, privater Markt kann effizienter bauen. 
+    Was meint ihr?</p>
+  </div>
+</div>
+
+
+<!-- ══════════ 2. ARBEIT ══════════ -->
+<div class="section-sep"></div>
+<div class="band">
+<div class="section" id="arbeit" style="padding-top:2rem;padding-bottom:2rem;">
+  <div class="section-header">
+    <div class="section-number">Kapitel II</div>
+    <span class="section-icon">⚙</span>
+    <h2 class="section-title">Arbeit & Wirtschaft</h2>
+    <div class="ornament-line"><span>✦</span></div>
+    <p style="color:var(--text-muted);font-size:1.05rem;max-width:600px;margin:0 auto;line-height:1.8;">
+      Wie viel arbeiten wir 2045? Welche Berufe existieren noch – 
+      und welche Rolle spielt künstliche Intelligenz?
+    </p>
+  </div>
+
+  <img
+    src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1100&q=80"
+    alt="Arbeitswelt der Zukunft"
+    class="img-banner"
+  />
+  <div class="ai-label">🤖 KI-Vision: Menschen und KI arbeiten gleichberechtigt Seite an Seite</div>
+
+  <div class="stat-grid">
+    <div class="stat-box">
+      <span class="stat-value">8 h</span>
+      <span class="stat-label">Arbeitstag (max.)</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-value">4 Tage</span>
+      <span class="stat-label">Wochenmodell (diskutiert)</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-value">KI = Partner</span>
+      <span class="stat-label">Nicht Konkurrent</span>
+    </div>
+  </div>
+
+  <div class="cards cards-3">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80" alt="KI Roboter" class="card-img" />
+      <div class="card-body">
+        <div class="card-label">Zukunftsberufe</div>
+        <div class="card-title">Berufe 2045</div>
+        <p class="card-text">KI-Trainer, Bio-Ingenieur, Klimaökonom, 
+        Datenschutzbeauftragter, Urban Farmer, Fusionsreaktor-Techniker, 
+        Mental-Health-Coach.</p>
+        <div class="tags"><span class="tag tag-blue">Technologie</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&q=80" alt="KI Bewusstsein" class="card-img" />
+      <div class="card-body">
+        <div class="card-label">Die große Frage</div>
+        <div class="card-title">KI mit Bewusstsein = Menschenrecht?</div>
+        <p class="card-text">Falls eine KI echtes Bewusstsein entwickelt, 
+        gelten dieselben Grundrechte wie für Menschen. 
+        Ausbeutung wäre dann verboten.</p>
+        <div class="tags"><span class="tag tag-gold">Ethik</span><span class="tag tag-blue">Recht</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&q=80" alt="Homeoffice" class="card-img" />
+      <div class="card-body">
+        <div class="card-label">Arbeitsmodell</div>
+        <div class="card-title">Flexibel & Human</div>
+        <p class="card-text">Max. 8 Stunden täglich. 
+        Hybrides Arbeiten als Standard. 
+        KI übernimmt stupide Routinetasks, 
+        Menschen konzentrieren sich auf Kreativität & Empathie.</p>
+        <div class="tags"><span class="tag tag-green">Work-Life</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- ══════════ 3. BILDUNG ══════════ -->
+<div class="section-sep"></div>
+<div class="section" id="bildung">
+  <div class="section-header">
+    <div class="section-number">Kapitel III</div>
+    <span class="section-icon">📚</span>
+    <h2 class="section-title">Bildung & Schule</h2>
+    <div class="ornament-line"><span>✦</span></div>
+    <p style="color:var(--text-muted);font-size:1.05rem;max-width:600px;margin:0 auto;line-height:1.8;">
+      Schule 2045: digital, menschlich und lebensnah. 
+      Welche Fächer braucht eine Generation, die die Welt verändert?
+    </p>
+  </div>
+
+  <img
+    src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1100&q=80"
+    alt="Schule der Zukunft"
+    class="img-banner"
+  />
+  <div class="ai-label">🤖 KI-Vision: Lichtdurchflutete Lernräume mit digitalen und analogen Elementen</div>
+
+  <div class="cards cards-2">
+    <div class="card">
+      <div class="card-body" style="padding:1.8rem;">
+        <div class="card-label">Fächerkanon 2045</div>
+        <div class="card-title">Was wird gelernt?</div>
+        <ul class="fancy-list">
+          <li><strong>Hauptfächer:</strong> Mathematik, Deutsch, Sprachen, Naturwissenschaften</li>
+          <li><strong>Sport</strong> – Pflichtfach bis zum Abschluss</li>
+          <li><strong>Geschichte & Politik</strong> – Kritisches Denken & Demokratie</li>
+          <li><strong>Finanzen & Wirtschaft</strong> – Steuern, Budget, Investieren</li>
+          <li><strong>Kochen & Haushalt</strong> – Alltagskompetenz als Schulfach</li>
+          <li><strong>Digitale Kompetenz</strong> – Coding, Datenschutz, KI-Ethik</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80" alt="Digitale Klasse" class="card-img" />
+      <div class="card-body">
+        <div class="card-label">Lernmethoden</div>
+        <div class="card-title">Lehrer + KI = Traum-Duo</div>
+        <p class="card-text">
+          Echte Lehrerinnen und Lehrer bleiben unverzichtbar – 
+          für Empathie, Motivation und soziales Lernen.
+          Digitale Geräte und KI-Tutoren ergänzen individuell 
+          und passen den Lernrhythmus an jeden Schüler an.
+        </p>
+        <div class="tags">
+          <span class="tag tag-blue">Digital</span>
+          <span class="tag tag-gold">Menschlich</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ 4. UMWELT ══════════ -->
+<div class="section-sep"></div>
+<div class="band">
+<div class="section" id="umwelt" style="padding-top:2rem;padding-bottom:2rem;">
+  <div class="section-header">
+    <div class="section-number">Kapitel IV</div>
+    <span class="section-icon">🌿</span>
+    <h2 class="section-title">Umwelt & Klima</h2>
+    <div class="ornament-line"><span>✦</span></div>
+    <p style="color:var(--text-muted);font-size:1.05rem;max-width:600px;margin:0 auto;line-height:1.8;">
+      Grüne Städte, saubere Energie, neue Mobilität – 
+      Deutschland 2045 macht den Klimawandel zur Chance.
+    </p>
+  </div>
+
+  <img
+    src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1100&q=80"
+    alt="Grüne Stadt 2045"
+    class="img-banner"
+  />
+  <div class="ai-label">🤖 KI-Vision: Begrünte Hochhäuser, Solarpaneel-Dächer, schwebende Bahnen</div>
+
+  <div class="cards cards-3">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=400&q=80" alt="Windenergie" class="card-img" />
+      <div class="card-body">
+        <div class="card-label">Energiequellen</div>
+        <div class="card-title">Atomkraft & Kernfusion</div>
+        <p class="card-text">
+          Moderne Kernreaktoren der 4. Generation liefern sichere Grundlastenergie. 
+          Kernfusion soll bis 2045 kommerziell nutzbar sein. 
+          Ergänzt durch Solar, Wind und Wasserkraft.
+        </p>
+        <div class="tags"><span class="tag tag-green">Energie</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&q=80" alt="Zukunfts-Bahn" class="card-img" />
+      <div class="card-body">
+        <div class="card-label">Mobilität</div>
+        <div class="card-title">Schwebende Bahnen & E-Autos</div>
+        <p class="card-text">
+          Innerstädtisch: Magnetschwebebahn und autonome E-Busse. 
+          Privat-PKW elektrisch oder Wasserstoff-betrieben. 
+          Fernverkehr: Hyperloop zwischen Großstädten.
+        </p>
+        <div class="tags"><span class="tag tag-blue">Mobilität</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=80" alt="Grüne Stadt" class="card-img" />
+      <div class="card-body">
+        <div class="card-label">Stadtgestaltung</div>
+        <div class="card-title">Grüner Lebensraum</div>
+        <p class="card-text">
+          Balkonpflanzen Pflicht in Neubauten. 
+          Parks in jedem Quartier – max. 500m Fußweg. 
+          Urbane Landwirtschaft auf Dächern. 
+          Bäume statt Parkplätze.
+        </p>
+        <div class="tags"><span class="tag tag-green">Natur</span><span class="tag tag-gold">Stadt</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- ══════════ 5. DIGITALISIERUNG ══════════ -->
+<div class="section-sep"></div>
+<div class="section" id="digital">
+  <div class="section-header">
+    <div class="section-number">Kapitel V</div>
+    <span class="section-icon">💻</span>
+    <h2 class="section-title">Digitalisierung</h2>
+    <div class="ornament-line"><span>✦</span></div>
+    <p style="color:var(--text-muted);font-size:1.05rem;max-width:600px;margin:0 auto;line-height:1.8;">
+      Das Internet braucht klare Regeln. Datenschutz ist ein Grundrecht – 
+      kein Bonus-Feature.
+    </p>
+  </div>
+
+  <img
+    src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1100&q=80"
+    alt="Digitale Sicherheit"
+    class="img-banner"
+  />
+  <div class="ai-label">🤖 KI-Vision: Transparente Datenströme, sicher und kontrolliert durch Bürgerinnen</div>
+
+  <div class="cards cards-2">
+    <div class="card">
+      <div class="card-body" style="padding:1.8rem;">
+        <div class="card-label">Internet-Regeln 2045</div>
+        <div class="card-title">Das digitale Grundgesetz</div>
+        <ul class="fancy-list">
+          <li>Keine Überwachungswerbung – Tracking ohne Einwilligung verboten</li>
+          <li>Algorithmen müssen transparent und erklärbar sein</li>
+          <li>Hassrede & Desinformation: KI-gestützte Meldepflicht für Plattformen</li>
+          <li>Recht auf digitale Vergessenheit – Daten löschen auf Knopfdruck</li>
+          <li>Minderjährigenschutz: Sozialmedia erst ab 16 Jahren</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding:1.8rem;">
+        <div class="card-label">Datenschutz</div>
+        <div class="card-title">Keine digitalen Pflicht-Ausweise</div>
+        <ul class="fancy-list">
+          <li><strong>Kein</strong> Zwang zu digitalem Personalausweis oder Gesichtserkennung</li>
+          <li>Staatliche Daten werden dezentral gespeichert – kein zentrales Profil</li>
+          <li>Open-Source-Software bei Behörden zur Transparenz</li>
+          <li>Bürgerinnen kontrollieren ihre eigenen Daten selbst</li>
+          <li>Digitale Identität bleibt freiwillig</li>
+        </ul>
+        <div class="tags">
+          <span class="tag tag-blue">Privacy</span>
+          <span class="tag tag-gold">Freiheit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ 6. GESELLSCHAFT ══════════ -->
+<div class="section-sep"></div>
+<div class="band">
+<div class="section" id="gesellschaft" style="padding-top:2rem;padding-bottom:2rem;">
+  <div class="section-header">
+    <div class="section-number">Kapitel VI</div>
+    <span class="section-icon">🤝</span>
+    <h2 class="section-title">Gesellschaft & Werte</h2>
+    <div class="ornament-line"><span>✦</span></div>
+    <p style="color:var(--text-muted);font-size:1.05rem;max-width:600px;margin:0 auto;line-height:1.8;">
+      Was hält uns zusammen? Welche Werte tragen ein gerechtes Deutschland 2045?
+    </p>
+  </div>
+
+  <img
+    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1100&q=80"
+    alt="Gesellschaft Zusammenhalt"
+    class="img-banner"
+  />
+  <div class="ai-label">🤖 KI-Vision: Diverse Gemeinschaft in einem offenen, modernen Deutschland</div>
+
+  <div class="cards cards-3">
+    <div class="card">
+      <div class="card-body" style="padding:1.8rem;">
+        <div class="card-label">Zusammenleben</div>
+        <div class="card-title">Harmonie durch Respekt</div>
+        <p class="card-text" style="margin-bottom:.8rem;">
+          Harmonie entsteht nicht durch Gleichmacherei, sondern durch 
+          gegenseitigen Respekt und klare gemeinsame Regeln.
+        </p>
+        <ul class="fancy-list">
+          <li>Aktive Nachbarschaftskultur fördern</li>
+          <li>Integrationsförderung als staatliche Aufgabe</li>
+          <li>Konfliktmediation statt Strafe</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding:1.8rem;">
+        <div class="card-label">Bei Vergehen</div>
+        <div class="card-title">Sanktionen & Wiedergutmachung</div>
+        <p class="card-text" style="margin-bottom:.8rem;">
+          Vergehen werden klar sanktioniert – 
+          aber mit dem Ziel der Reintegration, nicht der bloßen Bestrafung.
+        </p>
+        <ul class="fancy-list">
+          <li>Restorative Justice als Standard</li>
+          <li>Gemeinschaftsdienst statt Knast bei Kleinkriminalität</li>
+          <li>Präventionsprogramme für Jugendliche</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding:1.8rem;">
+        <div class="card-label">Werte 2045</div>
+        <div class="card-title">Was uns verbindet</div>
+        <div class="tags" style="margin-bottom:1rem;">
+          <span class="tag tag-gold">Würde</span>
+          <span class="tag tag-green">Nachhaltigkeit</span>
+          <span class="tag tag-blue">Offenheit</span>
+          <span class="tag tag-gold">Gerechtigkeit</span>
+          <span class="tag tag-green">Solidarität</span>
+          <span class="tag tag-blue">Freiheit</span>
+        </div>
+        <p class="card-text">
+          Diese sechs Werte bilden das Fundament unserer 
+          Zukunftsgesellschaft – verankert in Gesetz und gelebtem Alltag.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="discussion">
+    <div class="discussion-title">💬 Abschlussfrage</div>
+    <p>
+      <strong>Was ist euch persönlich am wichtigsten für das Zusammenleben 2045?</strong>
+      Diskutiert in der Klasse: Welche dieser Punkte würdet ihr sofort umsetzen – 
+      und wo seht ihr die größten Risiken?
+    </p>
+  </div>
+</div>
+</div>
+
+
+<!-- ══════════ FOOTER ══════════ -->
+<div class="section-sep"></div>
+<footer>
+  <p>Deutschland 2045 · Zukunftsprojekt · Erstellt mit Hilfe von KI · Klasse 2025</p>
+  <p style="margin-top:.5rem;font-size:.65rem;opacity:.5;">
+    Bilder: Unsplash · Konzept: Eure Klasse · Design: KI-generiert
+  </p>
+</footer>
+
+</body>
+</html>
